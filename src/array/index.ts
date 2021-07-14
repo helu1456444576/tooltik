@@ -7,7 +7,8 @@ interface IArrayLike<T> {
 /**
  * 返回数组的最后一个元素，不会改变原数组。
  */
-export const last = <T>(arr: IArrayLike<T>): T => {
+export const last = <T>(arr: IArrayLike<T>): T | undefined => {
+  if (arr.length === 0) return undefined;
   return arr[arr.length - 1]
 }
 
@@ -17,6 +18,7 @@ export const lastIndexOf = <T>(
   searchElement: T,
   fromIndex?: number
 ): number => {
+  fromIndex = fromIndex ? fromIndex : arr.length - 1
   return Array.prototype.lastIndexOf.call(arr, searchElement, fromIndex)
 }
 
@@ -54,7 +56,7 @@ export const forEachRight = <T, C = any>(
 
 export const filter = <T, S = any>(
   arr: IArrayLike<T>,
-  predicate: (value: T, index: number, array: T[]) => value is any,
+  predicate: (value: T, index: number, array: T[]) => boolean,
   thisArg?: S
 ): IArrayLike<T> => {
   return Array.prototype.filter.call(arr, predicate, thisArg)
@@ -62,7 +64,7 @@ export const filter = <T, S = any>(
 
 export const map = <T, S = any>(
   arr: T[],
-  callbackfn: (value: T, index: number, array: T[]) => T[],
+  callbackfn: (value: T, index: number, array: T[]) => any,
   thisArg?: S
 ): T[] => {
   return <T[]>Array.prototype.map.call(arr, callbackfn, thisArg)
@@ -137,7 +139,7 @@ export const findIndexRight = <T, C>(
 ): number => {
   const l = arr.length;
   for (let i = l - 1; i >= 0; i--) {
-    if (i in arr && callbackfn.call((thisArg), arr[i], i, arr)) {
+    if (callbackfn.call((thisArg), arr[i], i, arr)) {
       return i;
     }
   }
@@ -157,10 +159,10 @@ export const findRight = <T, C>(
   arr: IArrayLike<T>,
   callbackfn: (value: T, index: number, array: IArrayLike<T>) => unknown,
   thisArg?: C
-): T | null => {
+): T | undefined => {
   const i = findIndexRight(arr, callbackfn, thisArg);
 
-  return i > 0 ? arr[i] : null
+  return i > 0 ? arr[i] : undefined
 }
 
 /**
@@ -192,17 +194,19 @@ export const clear = <T>(arr: IArrayLike<T>): void => {
 /**
  * 插入一个值到数组的末尾，如果值已存在，则不插入
  */
-export const insert = <T>(arr: T[], obj: T): void => {
+export const insert = <T>(arr: T[], obj: T): T[] => {
   if (!contains(arr, obj)) {
     arr.push(obj);
   }
+  return arr
 }
 
 /**
  * 插入一个值到数组中的指定下标
  */
-export const insertAt = <T>(arr: IArrayLike<T>, obj: T, index: number): void => {
-  splice(arr, index, 0, obj);
+export const insertAt = <T>(arr: T[], index: number, ...obj: T[]): T[] => {
+  splice(arr, index, 0, ...obj);
+  return arr
 }
 
 // TODO insertArrayAt
@@ -212,15 +216,16 @@ export const insertAt = <T>(arr: IArrayLike<T>, obj: T, index: number): void => 
  */
 export const insertBefore = <T>(
   arr: T[],
-  dataToInsert: T,
-  matchedData: T
-): void => {
+  matchedData: T,
+  ...dataToInsert: T[]
+): T[] => {
   const i = indexOf(arr, matchedData)
-  if (!matchedData || i < 0) {
-    arr.push(dataToInsert)
+  if (i < 0) {
+    arr.push(...dataToInsert)
   } else {
-    insertAt(arr, dataToInsert, i, )
+    insertAt(arr, i, ...dataToInsert)
   }
+  return arr
 }
 
 /**
