@@ -344,7 +344,6 @@ export const forEachRight = <T, C = any>(
   }
 }
 
-
 export const count = <T, C = any>(
   arr: IArrayLike<T>,
   callbackfn: (value: T, index: number, array: IArrayLike<T>) => value is any,
@@ -535,3 +534,104 @@ export const toArray = <T>(object: IArrayLike<T>): T[] => {
   }
   return [];
 }
+
+/**
+ * 将数组进行反转
+ */
+export const rotate = <T>(
+  arr: T[],
+  n: number,
+): T[] => {
+  if (arr.length) {
+    n %= arr.length
+    if (n > 0) {
+      // 将后n个元素，移动到前n个
+      // splice会返回删除的元素，然后通过unshift插入到前面
+      Array.prototype.unshift.apply(arr, arr.splice(-n, n));
+    } else if (n < 0) {
+      // 将前n个元素，移动到后n个
+      // 将前n个元素移除，然后通过push放到数组后面
+      Array.prototype.push.apply(arr, arr.splice(0, -n));
+    }
+  }
+  return arr;
+}
+
+/**
+ * 将一个数重复n次，返回一个数组
+ */
+export const repeat = <T>(
+  value: T,
+  n: number
+): T[] => {
+  const array = [];
+  for (let i = 0; i < n; i++) {
+    array[i] = value;
+  }
+  return array;
+}
+
+export const flatten = <T>(...var_args: T[]): T[] => {
+  const CHUNK_SIZE = 8192;
+
+  const result: T[] = [];
+  for (let i = 0; i < var_args.length; i++) {
+    const element = var_args[i];
+    if (Array.isArray(element)) {
+      for (let c = 0; c < element.length; c += CHUNK_SIZE) {
+        const chunk = slice<T>(element, c, c + CHUNK_SIZE);
+        const recurseResult = flatten(...chunk);
+        for (let r = 0; r < recurseResult.length; r++) {
+          result.push(recurseResult[r]);
+        }
+      }
+    } else {
+      result.push(element);
+    }
+  }
+  return result;
+}
+
+// shuffle
+// zip
+// moveItem
+// range
+// bucket
+// binaryRemove
+// binaryInsert
+// equals
+// stableSort
+// binarySelect
+// binarySearch
+// removeDuplicates
+// extend
+// clone
+// chunk
+// compact
+// difference
+// differenceBy
+// differenceWith
+// drop
+// dropRight
+// dropWhile
+// fill
+// flattenDeep
+// fromPairs
+// head
+// initial
+// intersection
+// intersectionWith
+// nth
+// pull
+// pullAll
+// pullAllBy
+// pullAllWith
+// pullAllAt
+// tail
+// take
+// takeRight
+// takeRightWile
+// union
+// unionBy
+// unionWith
+// uniq
