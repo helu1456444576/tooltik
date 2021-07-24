@@ -2,7 +2,7 @@
   "name": "@charrue/toolkit",
   "version": "0.1.0",
   "license": "MIT",
-  "main": "dist/index.js",
+  "main": "dist/toolkit.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist",
