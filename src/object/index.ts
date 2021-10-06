@@ -1,4 +1,3 @@
-import cloneDeep from 'lodash.clonedeep'
 type PlainObject = Record<string, any>
 
 /**
@@ -38,8 +37,4 @@ export function omit(data: PlainObject, attrs: string[] = []) {
     delete result[attr];
   });
   return result;
-}
-
-export function deepClone(raw: any) {
-  return cloneDeep(raw)
 }
