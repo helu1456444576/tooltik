@@ -1,3 +1,6 @@
 export * from "./array"
+export * from "./common"
+export * from "./function"
+export * from "./object"
 export * from "./types"
 export * from "./browser"
