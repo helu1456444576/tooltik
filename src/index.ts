@@ -1,3 +1,5 @@
 export * from "./array"
+export * from "./common"
+export * from "./object"
 export * from "./types"
 export * from "./browser"
