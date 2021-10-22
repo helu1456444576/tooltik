@@ -46,3 +46,7 @@ export const isSymbol = isType<symbol>('Symbol')
 export const isNull = (val: any): boolean => val === null
 
 export const isUndefined = (val: any): boolean => val === undefined
+
+export const isDef = (val: any): boolean => !isNull(val) && !isUndefined(val)
+
+export const isUnDef = (val: any): boolean => isNull(val) || isUndefined(val)
