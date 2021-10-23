@@ -1,6 +1,6 @@
 {
   "name": "@charrue/toolkit",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "license": "MIT",
   "main": "dist/toolkit.cjs.production.min.js.js",
   "typings": "dist/index.d.ts",
