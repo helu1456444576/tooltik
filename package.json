@@ -2,9 +2,10 @@
   "name": "@charrue/toolkit",
   "version": "0.1.2",
   "license": "MIT",
-  "main": "dist/index.js",
+  "main": "dist/toolkit.cjs.production.min.js.js",
   "typings": "dist/index.d.ts",
   "unpkg": "dist/toolkit.cjs.production.min.js",
+  "module": "dist/toolkit.esm.js",
   "files": [
     "dist"
   ],
@@ -27,7 +28,6 @@
     }
   },
   "author": "ckangwen",
-  "module": "dist/index.esm.js",
   "size-limit": [
     {
       "path": "dist/index.cjs.production.min.js",
