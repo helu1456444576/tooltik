@@ -87,5 +87,6 @@ export {
 
 export {
   getKeyCodeFromEvent,
-  inBrowser
+  inBrowser,
+  downloadFile
 } from "./browser"
