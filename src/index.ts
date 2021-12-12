@@ -90,3 +90,5 @@ export {
   inBrowser,
   downloadFile
 } from "./browser"
+
+export { createQueue } from "./data-structure/queue"
