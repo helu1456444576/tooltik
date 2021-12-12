@@ -1,2 +1,3 @@
-export * from './browser'
-export * from './keycode'
+export { getKeyCodeFromEvent } from "./keycode"
+
+export { inBrowser } from "./browser"

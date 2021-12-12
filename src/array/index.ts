@@ -471,20 +471,6 @@ export const remove = <T>(
 }
 
 /**
- * 移除数组中最后一个选择的元素
- */
-export const removeLast = <T>(
-  arr: T[],
-  obj: T
-): number => {
-  const i = lastIndexOf(arr, obj);
-  if (i >= 0) {
-    removeAt(arr, i);
-  }
-  return i;
-}
-
-/**
  * 根据给定的条件移除数组中符合的第一个元素
  */
 export const removeIf = <T, C>(
