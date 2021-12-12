@@ -2,7 +2,7 @@
   "name": "@charrue/toolkit",
   "version": "0.1.4",
   "license": "MIT",
-  "main": "dist/toolkit.cjs.production.min.js.js",
+  "main": "dist/toolkit.cjs.development.js",
   "typings": "dist/index.d.ts",
   "unpkg": "dist/toolkit.cjs.production.min.js",
   "module": "dist/toolkit.esm.js",
