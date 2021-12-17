@@ -92,3 +92,7 @@ export {
 } from "./browser"
 
 export { createQueue } from "./data-structure/queue"
+
+export {
+  getMonthDay
+} from "./date"
