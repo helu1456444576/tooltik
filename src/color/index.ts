@@ -1,8 +1,10 @@
-const hexCharacters = 'a-f\\d';
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-bitwise */
+const hexCharacters = "a-f\\d";
 const match3or4Hex = `#?[${hexCharacters}]{3}[${hexCharacters}]?`;
 const match6or8Hex = `#?[${hexCharacters}]{6}([${hexCharacters}]{2})?`;
-const nonHexChars = new RegExp(`[^#${hexCharacters}]`, 'gi');
-const validHexSize = new RegExp(`^${match3or4Hex}$|^${match6or8Hex}$`, 'i');
+const nonHexChars = new RegExp(`[^#${hexCharacters}]`, "gi");
+const validHexSize = new RegExp(`^${match3or4Hex}$|^${match6or8Hex}$`, "i");
 
 type Options = {
   format?: "object" | "array" | "css";
@@ -10,12 +12,13 @@ type Options = {
 
 }
 
+// eslint-disable-next-line max-statements
 export default function hexRgb(hex: string, options: Options = {}) {
-  if (typeof hex !== 'string' || nonHexChars.test(hex) || !validHexSize.test(hex)) {
-    throw new TypeError('Expected a valid hex string');
+  if (typeof hex !== "string" || nonHexChars.test(hex) || !validHexSize.test(hex)) {
+    throw new TypeError("Expected a valid hex string");
   }
 
-  hex = hex.replace(/^#/, '');
+  hex = hex.replace(/^#/, "");
   let alphaFromHex = 1;
 
   if (hex.length === 8) {
@@ -36,14 +39,19 @@ export default function hexRgb(hex: string, options: Options = {}) {
   const red = number >> 16;
   const green = (number >> 8) & 255;
   const blue = number & 255;
-  const alpha = typeof options.alpha === 'number' ? options.alpha : alphaFromHex;
+  const alpha = typeof options.alpha === "number" ? options.alpha : alphaFromHex;
 
-  if (options.format === 'array') {
-    return [red, green, blue, alpha];
+  if (options.format === "array") {
+    return [
+      red,
+      green,
+      blue,
+      alpha,
+    ];
   }
 
-  if (options.format === 'css') {
-    const alphaString = alpha === 1 ? '' : ` / ${Number((alpha * 100).toFixed(2))}%`;
+  if (options.format === "css") {
+    const alphaString = alpha === 1 ? "" : ` / ${Number((alpha * 100).toFixed(2))}%`;
     return `rgb(${red} ${green} ${blue}${alphaString})`;
   }
 
@@ -51,6 +59,6 @@ export default function hexRgb(hex: string, options: Options = {}) {
     red,
     green,
     blue,
-    alpha
+    alpha,
   };
 }

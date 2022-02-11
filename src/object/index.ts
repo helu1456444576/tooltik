@@ -6,7 +6,7 @@ type PlainObject = Record<string, any>
  * @param { string } key 键名
  */
 export function hasIn(object: PlainObject, key: string): boolean {
-  return object != null && key in Object(object)
+  return object != null && key in Object(object);
 }
 
 /**
@@ -17,7 +17,7 @@ export function hasIn(object: PlainObject, key: string): boolean {
 export function pick(data: PlainObject, attrs: string[] = []) {
   const result: PlainObject = {};
   attrs.forEach((attr) => {
-    if (typeof data[attr] !== 'undefined') {
+    if (typeof data[attr] !== "undefined") {
       result[attr] = data[attr];
     }
   });

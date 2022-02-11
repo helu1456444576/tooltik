@@ -1,9 +1,10 @@
-type ArrayPredicate<T> = (value: T, index: number, array: IArrayLike<T>) => value is any
+/* eslint-disable no-param-reassign */
 interface IArrayLike<T> {
   length: number;
   [n: number]: T;
 }
-//////////////////////////////// Array内置的方法
+type ArrayPredicate<T> = (value: T, index: number, array: IArrayLike<T>) => value is any
+// Array内置的方法
 
 /**
  * 合并两个或多个数组。此方法不会更改现有数组，而是返回一个新数组。
@@ -16,9 +17,7 @@ interface IArrayLike<T> {
 export const concat = <T>(
   arr: T[],
   ...newArr: T[]
-): T[] => {
-  return Array.prototype.concat.call(arr, ...newArr)
-}
+): T[] => Array.prototype.concat.call(arr, ...newArr);
 
 /**
  * 浅复制数组的一部分到同一数组中的另一个位置，并返回它，不会改变原数组的长度
@@ -34,10 +33,8 @@ export const copyWithin = <T>(
   arr: T[],
   from: number,
   start: number,
-  end: number
-): T[] => {
-  return Array.prototype.copyWithin.call(arr, from, start, end)
-}
+  end: number,
+): T[] => Array.prototype.copyWithin.call(arr, from, start, end);
 
 /**
  * 返回一个新的Array Iterator对象，该对象包含数组中每个索引的键/值对
@@ -45,9 +42,7 @@ export const copyWithin = <T>(
  */
 export const entries = <T>(
   arr: T[],
-): IterableIterator<[number, T]>=> {
-  return Array.prototype.entries.call( arr)
-}
+): IterableIterator<[number, T]> => Array.prototype.entries.call(arr);
 
 /**
  * 试一个数组内的所有元素是否都能通过某个指定函数的测试
@@ -57,10 +52,8 @@ export const entries = <T>(
 export const every = <T, C = any>(
   arr: IArrayLike<T>,
   predicate: ArrayPredicate<T>,
-  thisArg?: C
-): boolean => {
-  return Array.prototype.every.call(arr, predicate, thisArg)
-}
+  thisArg?: C,
+): boolean => Array.prototype.every.call(arr, predicate, thisArg);
 
 /**
  * 用一个固定值填充一个数组中从起始索引到终止索引内的全部元素
@@ -73,9 +66,7 @@ export const fill = <T>(
   value: T,
   start?: number,
   end?: number,
-): T[] => {
-  return Array.prototype.fill.call(arr, value, start, end)
-}
+): T[] => Array.prototype.fill.call(arr, value, start, end);
 
 /**
  * 创建一个新数组, 其包含通过所提供函数实现的测试的所有元素
@@ -83,10 +74,8 @@ export const fill = <T>(
 export const filter = <T, S = any>(
   arr: IArrayLike<T>,
   predicate: (value: T, index: number, array: T[]) => boolean,
-  thisArg?: S
-): IArrayLike<T> => {
-  return Array.prototype.filter.call(arr, predicate, thisArg)
-}
+  thisArg?: S,
+): IArrayLike<T> => Array.prototype.filter.call(arr, predicate, thisArg);
 
 /**
  * 返回数组中满足提供的测试函数的第一个元素的值。否则返回 undefined。
@@ -94,10 +83,8 @@ export const filter = <T, S = any>(
 export const find = <T, C>(
   arr: IArrayLike<T>,
   callbackfn: (value: T, index: number, array: IArrayLike<T>) => unknown,
-  thisArg?: C
-): T | null => {
-  return Array.prototype.find.call(arr, callbackfn, thisArg)
-}
+  thisArg?: C,
+): T | null => Array.prototype.find.call(arr, callbackfn, thisArg);
 
 /**
  * 返回数组中满足提供的测试函数的第一个元素的索引。若没有找到对应元素则返回-1。
@@ -105,10 +92,8 @@ export const find = <T, C>(
 export const findIndex = <T, C>(
   arr: IArrayLike<T>,
   callbackfn: (value: T, index: number, array: IArrayLike<T>) => unknown,
-  thisArg?: C
-): number => {
-  return Array.prototype.findIndex.call(arr, callbackfn, thisArg)
-}
+  thisArg?: C,
+): number => Array.prototype.findIndex.call(arr, callbackfn, thisArg);
 
 /**
  * 按照一个可指定的深度递归遍历数组，并将所有元素与遍历到的子数组中的元素合并为一个新数组返回
@@ -118,34 +103,26 @@ export const findIndex = <T, C>(
  */
 export const flat = <T, D extends number>(
   arr: T[],
-  deep?: D
-): FlatArray<T, D>[] => {
-  return Array.prototype.flat.call(arr, deep) as FlatArray<T, D>[]
-}
+  deep?: D,
+): FlatArray<T, D>[] => Array.prototype.flat.call(arr, deep) as FlatArray<T, D>[];
 
 export const flatMap = <T, C>(
   arr: T[],
   callbackfn: (this:unknown, value: T, index: number, array: T[]) => unknown,
-  thisArg?: C
-): unknown[] => {
-  return (Array.prototype as T[]).flatMap.call(arr, callbackfn, thisArg)
-}
+  thisArg?: C,
+): unknown[] => (Array.prototype as T[]).flatMap.call(arr, callbackfn, thisArg);
 
 export const forEach = <T, C = any>(
   arr: IArrayLike<T>,
   callbackfn: (value: T, index: number, array: IArrayLike<T>) => void,
-  thisArg?: C
-): void => {
-  return Array.prototype.forEach.call(arr, callbackfn, thisArg)
-}
+  thisArg?: C,
+): void => Array.prototype.forEach.call(arr, callbackfn, thisArg);
 
 export const from = <T, C>(
   arr: Iterable<T> | IArrayLike<T>,
   callbackfn: (v: unknown, k: number) => unknown,
-  thisArg?: C
-): unknown[] => {
-  return Array.from.call(thisArg, arr, callbackfn, thisArg)
-}
+  thisArg?: C,
+): unknown[] => Array.from.call(thisArg, arr, callbackfn, thisArg);
 /**
  * 判断一个数组是否包含一个指定的值，根据情况，如果包含则返回 true，否则返回false
  * @example
@@ -156,61 +133,47 @@ export const includes = <T>(
   arr: T[],
   value: T,
   fromIndex?: number,
-): boolean => {
-  return Array.prototype.includes.call(arr, value, fromIndex)
-}
-
+): boolean => Array.prototype.includes.call(arr, value, fromIndex);
 
 export const indexOf = <T>(
   arr: IArrayLike<T>,
   searchElement: T,
   fromIndex?: number,
-): number => {
-  return Array.prototype.indexOf.call( arr, searchElement, fromIndex)
-}
+): number => Array.prototype.indexOf.call(arr, searchElement, fromIndex);
 
 /**
  * 将一个数组的所有元素连接成一个字符串并返回这个字符串
  */
 export const join = <T>(
   arr: T[],
-  separator?: string
-): string => {
-  return Array.prototype.join.call(arr, separator)
-}
+  separator?: string,
+): string => Array.prototype.join.call(arr, separator);
 
 export const keys = <T>(
-  arr: T[]
-): IterableIterator<number> => {
-  return Array.prototype.keys.call(arr)
-}
+  arr: T[],
+): IterableIterator<number> => Array.prototype.keys.call(arr);
 
 export const lastIndexOf = <T>(
   arr: IArrayLike<T>,
   searchElement: T,
-  fromIndex?: number
+  fromIndex?: number,
 ): number => {
-  fromIndex = fromIndex ? fromIndex : arr.length - 1
-  return Array.prototype.lastIndexOf.call(arr, searchElement, fromIndex)
-}
-
+  fromIndex = fromIndex || arr.length - 1;
+  return Array.prototype.lastIndexOf.call(arr, searchElement, fromIndex);
+};
 
 export const map = <T, S = any>(
   arr: T[],
   callbackfn: (value: T, index: number, array: T[]) => any,
-  thisArg?: S
-): T[] => {
-  return <T[]>Array.prototype.map.call(arr, callbackfn, thisArg)
-}
+  thisArg?: S,
+): T[] => <T[]>Array.prototype.map.call(arr, callbackfn, thisArg);
 
 /**
  * 从数组中删除最后一个元素，并返回该元素的值
  */
 export const pop = <T>(
-  arr: T[]
-): T | undefined => {
-  return Array.prototype.pop.call(arr)
-}
+  arr: T[],
+): T | undefined => Array.prototype.pop.call(arr);
 
 /**
  * 将一个或多个元素添加到数组的末尾，并返回该数组的新长度
@@ -218,41 +181,30 @@ export const pop = <T>(
 export const push = <T>(
   arr: T[],
   ...items: T[]
-): number => {
-  return Array.prototype.push.call(arr, ...items)
-}
+): number => Array.prototype.push.call(arr, ...items);
 
 export const reduce = <T>(
   arr: T[],
   callbackfn: (previousValue: unknown, currentValue: any, currentIndex: number, array: T[]) => T,
-  initialValue: T
-): unknown => {
-  return Array.prototype.reduce.call(arr, callbackfn, initialValue)
-}
+  initialValue: T,
+): unknown => Array.prototype.reduce.call(arr, callbackfn, initialValue);
 
 export const reduceRight = <T>(
   arr: T[],
   callbackfn: (previousValue: unknown, currentValue: any, currentIndex: number, array: T[]) => T,
-  initialValue: T
-): unknown => {
-  return Array.prototype.reduceRight.call(arr, callbackfn, initialValue)
-}
+  initialValue: T,
+): unknown => Array.prototype.reduceRight.call(arr, callbackfn, initialValue);
 
 export const reverse = <T>(
-  arr: T[]
-): T[] => {
-  return Array.prototype.reverse.call(arr)
-}
+  arr: T[],
+): T[] => Array.prototype.reverse.call(arr);
 
 /**
  * 数组中删除第一个元素，并返回该元素的值
  */
 export const shift = <T>(
-  arr: T[]
-): T => {
-  return Array.prototype.shift.call(arr)
-
-}
+  arr: T[],
+): T => Array.prototype.shift.call(arr);
 
 /**
  * 返回一个新的数组对象，这一对象是一个由 begin 和 end 决定的原数组的浅拷贝
@@ -261,9 +213,7 @@ export const slice = <T>(
   arr: T[],
   begin?: number,
   end?: number,
-): T[] => {
-  return Array.prototype.slice.call(arr, begin, end)
-}
+): T[] => Array.prototype.slice.call(arr, begin, end);
 
 /**
  * 测试数组中是不是至少有1个元素通过了被提供的函数测试
@@ -271,10 +221,8 @@ export const slice = <T>(
 export const some = <T, S = any>(
   arr: T[],
   predicate: (value: T, index: number, array: T[]) => unknown,
-  thisArg?: S
-): boolean => {
-  return Array.prototype.some.call(arr, predicate, thisArg)
-}
+  thisArg?: S,
+): boolean => Array.prototype.some.call(arr, predicate, thisArg);
 
 /**
  * 用原地算法对数组的元素进行排序，并返回数组
@@ -282,10 +230,8 @@ export const some = <T, S = any>(
  */
 export const sort = <T>(
   arr: T[],
-  compareFn?: (a: T, b: T) => number
-): T[] => {
-  return Array.prototype.sort.call(arr, compareFn)
-}
+  compareFn?: (a: T, b: T) => number,
+): T[] => Array.prototype.sort.call(arr, compareFn);
 
 /**
  * 通过删除或替换现有元素或者原地添加新的元素来修改数组
@@ -295,9 +241,7 @@ export const splice = <T>(
   start: number,
   deleteCount: number,
   ...values: any[]
-): T[] => {
-  return Array.prototype.splice.call(arr, start, deleteCount, ...values)
-}
+): T[] => Array.prototype.splice.call(arr, start, deleteCount, ...values);
 
 /**
  * 将一个或多个元素添加到数组的开头
@@ -305,28 +249,23 @@ export const splice = <T>(
 export const unshift = <T>(
   arr: T[],
   ...items: T[]
-): number => {
-  return Array.prototype.unshift.call(arr, ...items)
-}
+): number => Array.prototype.unshift.call(arr, ...items);
 
 /**
  * 返回一个新的 Array Iterator 对象，该对象包含数组每个索引的值
  */
 export const values = <T>(
-  arr: T[]
-):  IterableIterator<T> => {
-  return Array.prototype.values.call(arr)
-}
+  arr: T[],
+): IterableIterator<T> => Array.prototype.values.call(arr);
 
-
-//////////////////////////////// 引申出的方法
+/// ///////////////////////////// 引申出的方法
 /**
  * 返回数组的最后一个元素，不会改变原数组。
  */
 export const last = <T>(arr: IArrayLike<T>): T | undefined => {
   if (arr.length === 0) return undefined;
-  return arr[arr.length - 1]
-}
+  return arr[arr.length - 1];
+};
 
 /**
  * 从数组的最后一个元素向第一个元素开始遍历
@@ -334,80 +273,75 @@ export const last = <T>(arr: IArrayLike<T>): T | undefined => {
 export const forEachRight = <T, C = any>(
   arr: IArrayLike<T>,
   callbackfn: (value: T, index: number, self: IArrayLike<T>) => void,
-  context?: C
+  context?: C,
 ): void => {
   const l = arr.length;
-  for (let i = l - 1; i >= 0; --i) {
+  for (let i = l - 1;i >= 0;--i) {
     if (i in arr) {
       callbackfn.call(context, arr[i], i, arr);
     }
   }
-}
+};
 
 export const count = <T, C = any>(
   arr: IArrayLike<T>,
   callbackfn: (value: T, index: number, array: IArrayLike<T>) => value is any,
-  ctx?: C
+  ctx?: C,
 ): number => {
-  let count = 0
+  let num = 0;
   forEach(arr, (val, index, _arr) => {
     if (callbackfn.call(ctx, val, index, _arr)) {
-      ++count
+      ++num;
     }
-  }, ctx)
-  return count
-}
+  }, ctx);
+  return num;
+};
 
 export const findIndexRight = <T, C>(
   arr: IArrayLike<T>,
   callbackfn: (value: T, index: number, array: IArrayLike<T>) => unknown,
-  thisArg?: C
+  thisArg?: C,
 ): number => {
   const l = arr.length;
-  for (let i = l - 1; i >= 0; i--) {
+  for (let i = l - 1;i >= 0;i--) {
     if (callbackfn.call((thisArg), arr[i], i, arr)) {
       return i;
     }
   }
   return -1;
-}
-
+};
 
 export const findRight = <T, C>(
   arr: IArrayLike<T>,
   callbackfn: (value: T, index: number, array: IArrayLike<T>) => unknown,
-  thisArg?: C
+  thisArg?: C,
 ): T | undefined => {
   const i = findIndexRight(arr, callbackfn, thisArg);
 
-  return i > 0 ? arr[i] : undefined
-}
+  return i > 0 ? arr[i] : undefined;
+};
 
 /**
  * 判断数组中是否包含给定的对象
  */
-export const contains = <T>(arr: IArrayLike<T>, obj: T): boolean  => {
-  return indexOf(arr, obj) >= 0
-}
+export const contains = <T>(arr: IArrayLike<T>, obj: T): boolean => indexOf(arr, obj) >= 0;
 
 /**
  * 判断数组是否为空
  */
-export const isEmpty = <T>(arr: IArrayLike<T>): boolean => {
-  return arr.length === 0
-}
+export const isEmpty = <T>(arr: IArrayLike<T>): boolean => arr.length === 0;
 
 /**
  *清空数组中的值
  */
 export const clear = <T>(arr: IArrayLike<T>): void => {
   if (!Array.isArray(arr)) {
-    for (let i = arr.length - 1; i >= 0; i--) {
+    for (let i = arr.length - 1;i >= 0;i--) {
       delete arr[i];
     }
   }
   arr.length = 0;
-}
+};
 
 /**
  * 插入一个值到数组的末尾，如果值已存在，则不插入
@@ -416,16 +350,16 @@ export const insert = <T>(arr: T[], obj: T): T[] => {
   if (!contains(arr, obj)) {
     arr.push(obj);
   }
-  return arr
-}
+  return arr;
+};
 
 /**
  * 插入一个值到数组中的指定下标
  */
 export const insertAt = <T>(arr: T[], index: number, ...obj: T[]): T[] => {
   splice(arr, index, 0, ...obj);
-  return arr
-}
+  return arr;
+};
 
 // TODO insertArrayAt
 
@@ -437,38 +371,36 @@ export const insertBefore = <T>(
   matchedData: T,
   ...dataToInsert: T[]
 ): T[] => {
-  const i = indexOf(arr, matchedData)
+  const i = indexOf(arr, matchedData);
   if (i < 0) {
-    arr.push(...dataToInsert)
+    arr.push(...dataToInsert);
   } else {
-    insertAt(arr, i, ...dataToInsert)
+    insertAt(arr, i, ...dataToInsert);
   }
-  return arr
-}
+  return arr;
+};
 
 /**
  * 移除数组中指定下标的元素
  */
 export const removeAt = <T>(
   arr: T[],
-  i: number
-): boolean => {
-  return Array.prototype.splice.call(arr, i, 1).length == 1
-}
+  i: number,
+): boolean => Array.prototype.splice.call(arr, i, 1).length === 1;
 
 /**
  * 移除数组中第一个选择的元素
  */
 export const remove = <T>(
   arr: T[],
-  obj: T
+  obj: T,
 ): number => {
   const i = indexOf(arr, obj);
   if (i >= 0) {
     removeAt(arr, i);
   }
   return i;
-}
+};
 
 /**
  * 根据给定的条件移除数组中符合的第一个元素
@@ -476,15 +408,15 @@ export const remove = <T>(
 export const removeIf = <T, C>(
   arr: T[],
   callbackfn: (value: T, index: number, array: IArrayLike<T>) => unknown,
-  thisArg?: C
+  thisArg?: C,
 ): boolean => {
   const index = findIndex(arr, callbackfn, thisArg);
-  if (index >=0 ) {
-    removeAt(arr, index)
-    return true
+  if (index >= 0) {
+    removeAt(arr, index);
+    return true;
   }
-  return false
-}
+  return false;
+};
 
 /**
  * 根据给定的条件移除数组中的所有符合的元素
@@ -492,7 +424,7 @@ export const removeIf = <T, C>(
 export const removeAllIf = <T, C>(
   arr: T[],
   callbackfn: (value: T, index: number, array: IArrayLike<T>) => unknown,
-  thisArg?: C
+  thisArg?: C,
 ): number => {
   let removedCount = 0;
   forEachRight(arr, (value, index) => {
@@ -501,25 +433,25 @@ export const removeAllIf = <T, C>(
         removedCount++;
       }
     }
-  })
-  return removedCount
-}
+  });
+  return removedCount;
+};
 
 /**
  * 将一个类数组转换为数组类型
  */
 export const toArray = <T>(object: IArrayLike<T>): T[] => {
-  const length = object.length;
+  const { length } = object;
 
   if (length > 0) {
     const rv: T[] = new Array(length);
-    for (let i = 0; i < length; i++) {
+    for (let i = 0;i < length;i++) {
       rv[i] = object[i];
     }
     return rv;
   }
   return [];
-}
+};
 
 /**
  * 将数组进行反转
@@ -529,7 +461,7 @@ export const rotate = <T>(
   n: number,
 ): T[] => {
   if (arr.length) {
-    n %= arr.length
+    n %= arr.length;
     if (n > 0) {
       // 将后n个元素，移动到前n个
       // splice会返回删除的元素，然后通过unshift插入到前面
@@ -541,33 +473,33 @@ export const rotate = <T>(
     }
   }
   return arr;
-}
+};
 
 /**
  * 将一个数重复n次，返回一个数组
  */
 export const repeat = <T>(
   value: T,
-  n: number
+  n: number,
 ): T[] => {
   const array = [];
-  for (let i = 0; i < n; i++) {
+  for (let i = 0;i < n;i++) {
     array[i] = value;
   }
   return array;
-}
+};
 
-export const flatten = <T>(...var_args: T[]): T[] => {
+export const flatten = <T>(...args: T[]): T[] => {
   const CHUNK_SIZE = 8192;
 
   const result: T[] = [];
-  for (let i = 0; i < var_args.length; i++) {
-    const element = var_args[i];
+  for (let i = 0;i < args.length;i++) {
+    const element = args[i];
     if (Array.isArray(element)) {
-      for (let c = 0; c < element.length; c += CHUNK_SIZE) {
+      for (let c = 0;c < element.length;c += CHUNK_SIZE) {
         const chunk = slice<T>(element, c, c + CHUNK_SIZE);
         const recurseResult = flatten(...chunk);
-        for (let r = 0; r < recurseResult.length; r++) {
+        for (let r = 0;r < recurseResult.length;r++) {
           result.push(recurseResult[r]);
         }
       }
@@ -576,7 +508,7 @@ export const flatten = <T>(...var_args: T[]): T[] => {
     }
   }
   return result;
-}
+};
 
 // shuffle
 // zip

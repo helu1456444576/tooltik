@@ -1,7 +1,6 @@
 export {
   inBrowser,
-  downloadFile
-} from "./browser"
+  downloadFile,
+} from "./browser";
 
-export { getKeyCodeFromEvent } from "./keycode"
-
+export { getKeyCodeFromEvent } from "./keycode";

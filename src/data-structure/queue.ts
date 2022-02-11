@@ -16,9 +16,9 @@ interface Queue<T extends any> {
 const createNode = <T>(value: T): QueueNode<T> => {
   return {
     value,
-    next: null
-  }
-}
+    next: null,
+  };
+};
 export const createQueue = <T extends any>(): Queue<T> => {
   let head: QueueNode<T> | null = null;
   let tail: QueueNode<T> | null = null;
@@ -27,54 +27,54 @@ export const createQueue = <T extends any>(): Queue<T> => {
     enqueue(value: T) {
       const node = createNode<T>(value);
       if (head && tail) {
-        tail.next = node
-        tail = node
+        tail.next = node;
+        tail = node;
       } else {
-        head = node
-        tail = node
+        head = node;
+        tail = node;
       }
-      size++
+      size++;
     },
     dequeue() {
-      const current = head
+      const current = head;
       if (!current) {
-        return undefined
+        return undefined;
       }
-      head = current.next
-      size--
-      return current.value
+      head = current.next;
+      size--;
+      return current.value;
     },
     peek() {
       if (!head) {
-        return
+        return undefined;
       }
-      return head.value
+      return head.value;
     },
     clear() {
-      head = null
-      tail = null
-      size = 0
+      head = null;
+      tail = null;
+      size = 0;
     },
     size() {
-      return size
+      return size;
     },
     forEach(callback) {
-      let current = head
-      let index = 0
-      while(current) {
+      let current = head;
+      let index = 0;
+      while (current) {
         if (typeof callback === "function") {
-          callback(current.value, index)
+          callback(current.value, index);
         }
-        current = current.next
-        index++
+        current = current.next;
+        index++;
       }
     },
     toArray() {
-      const arr: T[] = []
+      const arr: T[] = [];
       this.forEach((value) => {
-        arr.push(value)
-      })
-      return arr
-    }
-  }
-}
+        arr.push(value);
+      });
+      return arr;
+    },
+  };
+};
