@@ -94,5 +94,9 @@ export {
 export { createQueue } from "./data-structure/queue"
 
 export {
-  getMonthDay
+  getMonthDay,
+  parseSeconds,
+  formatSeconds
 } from "./date"
+
+export * from "./string"
