@@ -67,7 +67,7 @@ const config = [
     output: [
       {
         format: "es",
-        file: getOutput("index.d.js"),
+        file: getOutput("index.d.ts"),
       },
     ],
     plugins: [dts()],
