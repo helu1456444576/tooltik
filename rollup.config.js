@@ -3,6 +3,7 @@ import rimraf from "rimraf";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import commonJs from "@rollup/plugin-commonjs";
 import esbuild, { minify } from "rollup-plugin-esbuild";
+import dts from "rollup-plugin-dts";
 
 const commonPlugins = [
   esbuild({
@@ -60,6 +61,16 @@ const config = [
       return /^vue/.test(id);
     },
     plugins: [...commonPlugins, minify()],
+  },
+  {
+    input: "src/index.ts",
+    output: [
+      {
+        format: "es",
+        file: getOutput("index.d.js"),
+      },
+    ],
+    plugins: [dts()],
   },
 ];
 
