@@ -10,7 +10,7 @@ export * from "./is";
 
 export * from "./browser";
 
-export { createQueue } from "./data-structure/queue";
+export * from "./data-structure";
 
 export * from "./date";
 

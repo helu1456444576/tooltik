@@ -1,4 +1,3 @@
-// import { createQueue } from "../src/data-structure/queue";
 import { Queue } from "../src/data-structure/Queue";
 
 describe("test queue", () => {
