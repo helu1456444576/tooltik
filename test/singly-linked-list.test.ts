@@ -1,102 +1,81 @@
-import { createSinglyLinkedList } from '../src/data-structure/singly-linked-list';
+import { SinglyLinkedList } from "../src/data-structure/SinglyLinkedList";
 
-describe('singly-linked-list', () => {
-  const singlyLinkedList = createSinglyLinkedList()
-
-  it('addFirst', () => {
-    singlyLinkedList.clear()
-    singlyLinkedList.addFirst("1")
-    singlyLinkedList.addFirst("2")
-    expect(singlyLinkedList.size()).toBe(2)
-    expect(singlyLinkedList.head()?.value).toBe("2")
+describe("singly-linked-list", () => {
+  it("addFirst", () => {
+    const singlyLinkedList = new SinglyLinkedList<string>();
+    singlyLinkedList.addFirst("1");
+    singlyLinkedList.addFirst("2");
+    expect(singlyLinkedList.size).toBe(2);
+    expect(singlyLinkedList.front).toBe("2");
   });
 
+  it("removeFirst", () => {
+    const singlyLinkedList = new SinglyLinkedList<string>();
+    singlyLinkedList.addFirst("1");
+    singlyLinkedList.addFirst("2");
+    const removedValue = singlyLinkedList.removeFirst();
+    expect(singlyLinkedList.size).toBe(1);
+    expect(singlyLinkedList.front).toBe("1");
+    expect(removedValue).toBe("2");
+  });
 
-  it('addLast', () => {
-    singlyLinkedList.clear()
-    singlyLinkedList.addLast("1")
-    singlyLinkedList.addLast("2")
+  it("remove", () => {
+    const singlyLinkedList = new SinglyLinkedList<string>();
+    singlyLinkedList.addFirst("1");
+    singlyLinkedList.addFirst("2");
 
-    expect(singlyLinkedList.size()).toBe(2)
-    expect(singlyLinkedList.head()?.value).toBe("1")
-  })
+    const removeIndex1 = singlyLinkedList.remove("1");
+    expect(removeIndex1).toBe(1);
+    const removeIndex2 = singlyLinkedList.remove("2");
+    expect(removeIndex2).toBe(0);
+    const removeIndex3 = singlyLinkedList.remove("3");
+    expect(removeIndex3).toBe(-1);
+  });
 
-  it('removeFirst', () => {
-    singlyLinkedList.clear()
-    singlyLinkedList.addLast("1")
-    singlyLinkedList.addLast("2")
-    let first = singlyLinkedList.removeFirst()
+  it("findIndex", () => {
+    const singlyLinkedList = new SinglyLinkedList<string>();
+    singlyLinkedList.addFirst("1");
+    singlyLinkedList.addFirst("2");
+    singlyLinkedList.addFirst("3");
 
-    expect(singlyLinkedList.size()).toBe(1)
-    expect(first?.value).toBe("1")
-    expect(singlyLinkedList.head()?.value).toBe("2")
+    expect(singlyLinkedList.findIndex("1")).toBe(2);
+    expect(singlyLinkedList.findIndex("2")).toBe(1);
+    expect(singlyLinkedList.findIndex("3")).toBe(0);
+    expect(singlyLinkedList.findIndex("4")).toBe(-1);
+  });
 
-    first = singlyLinkedList.removeFirst()
-    expect(first?.value).toBe("2")
-    expect(singlyLinkedList.head()).toBe(null)
-  })
+  it("at", () => {
+    const singlyLinkedList = new SinglyLinkedList<string>();
+    singlyLinkedList.addFirst("1");
+    singlyLinkedList.addFirst("2");
+    singlyLinkedList.addFirst("3");
 
-  it('removeLast', () => {
-    singlyLinkedList.clear()
-    singlyLinkedList.addLast("1")
-    singlyLinkedList.addLast("2")
-    let last = singlyLinkedList.removeLast()
+    expect(singlyLinkedList.at(0)).toBe("3");
+    expect(singlyLinkedList.at(1)).toBe("2");
+    expect(singlyLinkedList.at(2)).toBe("1");
+    expect(singlyLinkedList.at(3)).toBe(undefined);
+  });
 
-    expect(singlyLinkedList.size()).toBe(1)
-    expect(last?.value).toBe('2')
-    expect(singlyLinkedList.head()?.value).toBe("1")
+  it("find", () => {
+    const singlyLinkedList = new SinglyLinkedList<string>();
+    singlyLinkedList.addFirst("1");
+    singlyLinkedList.addFirst("2");
+    singlyLinkedList.addFirst("3");
 
-    last = singlyLinkedList.removeLast()
-    expect(last?.value).toBe('1')
-    expect(singlyLinkedList.head()).toBe(null)
-  })
+    expect(singlyLinkedList.find("2")?.value).toBe("2");
+  });
 
-  it('remove', () => {
-    singlyLinkedList.clear()
-    singlyLinkedList.addLast("1")
-    singlyLinkedList.addLast("2")
-    let index = singlyLinkedList.remove('2')
+  it("toArray", () => {
+    const singlyLinkedList = new SinglyLinkedList<string>();
 
-    expect(singlyLinkedList.size()).toBe(1)
-    expect(index).toBe(1)
-    expect(singlyLinkedList.head()?.value).toBe("1")
+    singlyLinkedList.addFirst("1");
+    singlyLinkedList.addFirst("2");
+    singlyLinkedList.addFirst("3");
 
-    index = singlyLinkedList.remove('2')
-    expect(index).toBe(-1)
-
-    index = singlyLinkedList.remove('1')
-    expect(index).toBe(0)
-    expect(singlyLinkedList.head()).toBe(null)
-  })
-
-  it('indexOf', () => {
-    singlyLinkedList.clear()
-    singlyLinkedList.addLast("1")
-    singlyLinkedList.addLast("2")
-    singlyLinkedList.addLast("3")
-
-    expect(singlyLinkedList.indexOf("1")).toBe(0)
-    expect(singlyLinkedList.indexOf("2")).toBe(1)
-    expect(singlyLinkedList.indexOf("3")).toBe(2)
-    expect(singlyLinkedList.indexOf("4")).toBe(-1)
-  })
-  it('at', () => {
-    singlyLinkedList.clear()
-    singlyLinkedList.addLast("1")
-    singlyLinkedList.addLast("2")
-    singlyLinkedList.addLast("3")
-
-    expect(singlyLinkedList.at(0)?.value).toBe("1")
-    expect(singlyLinkedList.at(1)?.value).toBe("2")
-    expect(singlyLinkedList.at(2)?.value).toBe("3")
-    expect(singlyLinkedList.at(3)).toBe(null)
-  })
-  it('toArray', () => {
-    singlyLinkedList.clear()
-    singlyLinkedList.addLast("1")
-    singlyLinkedList.addLast("2")
-    singlyLinkedList.addLast("3")
-
-    expect(singlyLinkedList.toArray()).toEqual(["1", "2", "3"])
-  })
+    expect(singlyLinkedList.toArray()).toEqual([
+      "3",
+      "2",
+      "1",
+    ]);
+  });
 });
